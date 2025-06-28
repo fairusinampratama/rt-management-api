@@ -1,0 +1,1027 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "RT Management API",
+        "description": "API documentation for RT Management System",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login and get API token",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful, returns token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/laporan/summary": {
+            "get": {
+                "tags": [
+                    "Laporan"
+                ],
+                "summary": "Get summary pemasukan, pengeluaran, dan saldo per bulan/tahun",
+                "operationId": "816ccbe3955e8c55567b2e18c092da6b",
+                "parameters": [
+                    {
+                        "name": "bulan",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "tahun",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/laporan/grafik": {
+            "get": {
+                "tags": [
+                    "Laporan"
+                ],
+                "summary": "Get grafik pemasukan dan pengeluaran per bulan dalam 1 tahun",
+                "operationId": "29c2962911b13db919303e3e6e846a42",
+                "parameters": [
+                    {
+                        "name": "tahun",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/laporan/pemasukan": {
+            "get": {
+                "tags": [
+                    "Laporan"
+                ],
+                "summary": "Get tabel pemasukan per bulan/tahun",
+                "operationId": "d0abdb19301571e9a52f0e4a4a8dc332",
+                "parameters": [
+                    {
+                        "name": "bulan",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "tahun",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/laporan/pengeluaran": {
+            "get": {
+                "tags": [
+                    "Laporan"
+                ],
+                "summary": "Get tabel pengeluaran per bulan/tahun",
+                "operationId": "fc845a291890db399f61d18961f2f24e",
+                "parameters": [
+                    {
+                        "name": "bulan",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "tahun",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/laporan/saldo": {
+            "get": {
+                "tags": [
+                    "Laporan"
+                ],
+                "summary": "Get saldo berjalan per bulan dalam 1 tahun",
+                "operationId": "8cafe2418ede7916e1b1ad284a63750f",
+                "parameters": [
+                    {
+                        "name": "tahun",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/pembayaran": {
+            "get": {
+                "tags": [
+                    "Pembayaran"
+                ],
+                "summary": "Get list of pembayaran",
+                "operationId": "ced6d400ae6007a7789463add1f92e91",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Pembayaran"
+                ],
+                "summary": "Create new pembayaran",
+                "operationId": "99dbd91a19e6f393f2bfc266f7b14805",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "rumah_id",
+                                    "penghuni_id",
+                                    "bulan",
+                                    "tahun",
+                                    "jenis_iuran",
+                                    "jumlah",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "rumah_id": {
+                                        "type": "integer"
+                                    },
+                                    "penghuni_id": {
+                                        "type": "integer"
+                                    },
+                                    "bulan": {
+                                        "type": "integer"
+                                    },
+                                    "tahun": {
+                                        "type": "integer"
+                                    },
+                                    "jenis_iuran": {
+                                        "type": "string"
+                                    },
+                                    "jumlah": {
+                                        "type": "number"
+                                    },
+                                    "status": {
+                                        "type": "boolean"
+                                    },
+                                    "tanggal_bayar": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/api/pembayaran/{id}": {
+            "get": {
+                "tags": [
+                    "Pembayaran"
+                ],
+                "summary": "Get detail pembayaran",
+                "operationId": "2b3ff503f0051a2f3ded259e5d54acaa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Pembayaran"
+                ],
+                "summary": "Update pembayaran",
+                "operationId": "9703cd05d4bee4ad88ccecfdc6af7dcb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "rumah_id": {
+                                        "type": "integer"
+                                    },
+                                    "penghuni_id": {
+                                        "type": "integer"
+                                    },
+                                    "bulan": {
+                                        "type": "integer"
+                                    },
+                                    "tahun": {
+                                        "type": "integer"
+                                    },
+                                    "jenis_iuran": {
+                                        "type": "string"
+                                    },
+                                    "jumlah": {
+                                        "type": "number"
+                                    },
+                                    "status": {
+                                        "type": "boolean"
+                                    },
+                                    "tanggal_bayar": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Pembayaran"
+                ],
+                "summary": "Delete pembayaran",
+                "operationId": "f9e73cdb4e374f77fb2223c7c62cc111",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
+        },
+        "/api/pengeluaran": {
+            "get": {
+                "tags": [
+                    "Pengeluaran"
+                ],
+                "summary": "Get list of pengeluaran",
+                "operationId": "8617986b048d1402656c508cf15171da",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Pengeluaran"
+                ],
+                "summary": "Create new pengeluaran",
+                "operationId": "92df6fff68b8e9855af8d143d16c0a32",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nama_pengeluaran",
+                                    "jumlah",
+                                    "bulan",
+                                    "tahun",
+                                    "tanggal_pengeluaran"
+                                ],
+                                "properties": {
+                                    "nama_pengeluaran": {
+                                        "type": "string"
+                                    },
+                                    "jumlah": {
+                                        "type": "number"
+                                    },
+                                    "bulan": {
+                                        "type": "integer"
+                                    },
+                                    "tahun": {
+                                        "type": "integer"
+                                    },
+                                    "tanggal_pengeluaran": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "keterangan": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/api/pengeluaran/{id}": {
+            "get": {
+                "tags": [
+                    "Pengeluaran"
+                ],
+                "summary": "Get detail pengeluaran",
+                "operationId": "5d688ba2ce9f2269d97e13b5a91ec38a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Pengeluaran"
+                ],
+                "summary": "Update pengeluaran",
+                "operationId": "84b37bf124ac4eaa25bba7a6d35fcf36",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama_pengeluaran": {
+                                        "type": "string"
+                                    },
+                                    "jumlah": {
+                                        "type": "number"
+                                    },
+                                    "bulan": {
+                                        "type": "integer"
+                                    },
+                                    "tahun": {
+                                        "type": "integer"
+                                    },
+                                    "tanggal_pengeluaran": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "keterangan": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Pengeluaran"
+                ],
+                "summary": "Delete pengeluaran",
+                "operationId": "d9e7fd7dcdb469201561316555edfd7f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
+        },
+        "/api/penghuni": {
+            "get": {
+                "tags": [
+                    "Penghuni"
+                ],
+                "summary": "Get list of penghuni",
+                "operationId": "22fa370a08a7ac1a893b3002edb511c0",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Penghuni"
+                ],
+                "summary": "Create new penghuni",
+                "operationId": "a6b25842b3df3a54ca5a6bdb9a4f3e84",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nama_lengkap",
+                                    "status_penghuni",
+                                    "nomor_telepon",
+                                    "status_menikah"
+                                ],
+                                "properties": {
+                                    "nama_lengkap": {
+                                        "type": "string"
+                                    },
+                                    "foto_ktp": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "status_penghuni": {
+                                        "type": "boolean"
+                                    },
+                                    "nomor_telepon": {
+                                        "type": "string"
+                                    },
+                                    "status_menikah": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/api/penghuni/{id}": {
+            "get": {
+                "tags": [
+                    "Penghuni"
+                ],
+                "summary": "Get detail penghuni",
+                "operationId": "b5b93cab33e69a067845caec5dbe8c52",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Penghuni"
+                ],
+                "summary": "Update penghuni",
+                "operationId": "3b0a2a960e79edc4355ce07d223bd3a5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama_lengkap": {
+                                        "type": "string"
+                                    },
+                                    "foto_ktp": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "status_penghuni": {
+                                        "type": "boolean"
+                                    },
+                                    "nomor_telepon": {
+                                        "type": "string"
+                                    },
+                                    "status_menikah": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Penghuni"
+                ],
+                "summary": "Delete penghuni",
+                "operationId": "818f670d4d7abbef5d5132370495813d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
+        },
+        "/api/rumah": {
+            "get": {
+                "tags": [
+                    "Rumah"
+                ],
+                "summary": "Get list of rumah",
+                "operationId": "12e1d89f91088a37ce297c59e870f5a4",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Rumah"
+                ],
+                "summary": "Create new rumah",
+                "operationId": "de75c51f0ec5ac405e65f9b033f61272",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nomor_rumah",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "nomor_rumah": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/api/rumah/{id}": {
+            "get": {
+                "tags": [
+                    "Rumah"
+                ],
+                "summary": "Get detail rumah",
+                "operationId": "bce69ff8f6ef8c720e6d5bbf3b0d3487",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Rumah"
+                ],
+                "summary": "Update rumah",
+                "operationId": "5c3bdc736f369b24ad728eee700aa69d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nomor_rumah": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Rumah"
+                ],
+                "summary": "Delete rumah",
+                "operationId": "00655f14624b51e5779dd47997bf6a0b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
+        },
+        "/api/rumah-penghuni": {
+            "get": {
+                "tags": [
+                    "RumahPenghuni"
+                ],
+                "summary": "Get list of rumah penghuni",
+                "operationId": "ffb712b8452c2b540bd2191216ca7f9a",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "RumahPenghuni"
+                ],
+                "summary": "Create new rumah penghuni",
+                "operationId": "678996f1489bc6e30e6b522570795756",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "rumah_id",
+                                    "penghuni_id",
+                                    "tanggal_masuk"
+                                ],
+                                "properties": {
+                                    "rumah_id": {
+                                        "type": "integer"
+                                    },
+                                    "penghuni_id": {
+                                        "type": "integer"
+                                    },
+                                    "tanggal_masuk": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "tanggal_keluar": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/api/rumah-penghuni/{id}": {
+            "get": {
+                "tags": [
+                    "RumahPenghuni"
+                ],
+                "summary": "Get detail rumah penghuni",
+                "operationId": "29fd0993d27778cec484cb19682c79cb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "RumahPenghuni"
+                ],
+                "summary": "Update rumah penghuni",
+                "operationId": "dd5fba4476726d7f5e9e286cc4fbca79",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "rumah_id": {
+                                        "type": "integer"
+                                    },
+                                    "penghuni_id": {
+                                        "type": "integer"
+                                    },
+                                    "tanggal_masuk": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "tanggal_keluar": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "RumahPenghuni"
+                ],
+                "summary": "Delete rumah penghuni",
+                "operationId": "4f06b17ac7aa2dda0e7c76faecb5ddf8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Laporan",
+            "description": "Laporan"
+        },
+        {
+            "name": "Pembayaran",
+            "description": "Pembayaran"
+        },
+        {
+            "name": "Pengeluaran",
+            "description": "Pengeluaran"
+        },
+        {
+            "name": "Penghuni",
+            "description": "Penghuni"
+        },
+        {
+            "name": "Rumah",
+            "description": "Rumah"
+        },
+        {
+            "name": "RumahPenghuni",
+            "description": "RumahPenghuni"
+        }
+    ]
+}
