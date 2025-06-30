@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class RumahPenghuni extends Model
 {
+    use HasFactory;
+
     protected $table = 'rumah_penghuni';
 
     protected $fillable = [
@@ -15,13 +18,13 @@ class RumahPenghuni extends Model
         'tanggal_keluar',
     ];
 
-    public function rumah()
-    {
-        return $this->belongsTo(Rumah::class);
-    }
-
     public function penghuni()
     {
         return $this->belongsTo(Penghuni::class);
+    }
+
+    public function rumah()
+    {
+        return $this->belongsTo(Rumah::class);
     }
 }

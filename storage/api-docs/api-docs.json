@@ -49,6 +49,20 @@
                                         },
                                         "token": {
                                             "type": "string"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -839,159 +853,6 @@
                     }
                 }
             }
-        },
-        "/api/rumah-penghuni": {
-            "get": {
-                "tags": [
-                    "RumahPenghuni"
-                ],
-                "summary": "Get list of rumah penghuni",
-                "operationId": "ffb712b8452c2b540bd2191216ca7f9a",
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "RumahPenghuni"
-                ],
-                "summary": "Create new rumah penghuni",
-                "operationId": "678996f1489bc6e30e6b522570795756",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "rumah_id",
-                                    "penghuni_id",
-                                    "tanggal_masuk"
-                                ],
-                                "properties": {
-                                    "rumah_id": {
-                                        "type": "integer"
-                                    },
-                                    "penghuni_id": {
-                                        "type": "integer"
-                                    },
-                                    "tanggal_masuk": {
-                                        "type": "string",
-                                        "format": "date"
-                                    },
-                                    "tanggal_keluar": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "nullable": true
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Created"
-                    }
-                }
-            }
-        },
-        "/api/rumah-penghuni/{id}": {
-            "get": {
-                "tags": [
-                    "RumahPenghuni"
-                ],
-                "summary": "Get detail rumah penghuni",
-                "operationId": "29fd0993d27778cec484cb19682c79cb",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "RumahPenghuni"
-                ],
-                "summary": "Update rumah penghuni",
-                "operationId": "dd5fba4476726d7f5e9e286cc4fbca79",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "rumah_id": {
-                                        "type": "integer"
-                                    },
-                                    "penghuni_id": {
-                                        "type": "integer"
-                                    },
-                                    "tanggal_masuk": {
-                                        "type": "string",
-                                        "format": "date"
-                                    },
-                                    "tanggal_keluar": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "nullable": true
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Updated"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "RumahPenghuni"
-                ],
-                "summary": "Delete rumah penghuni",
-                "operationId": "4f06b17ac7aa2dda0e7c76faecb5ddf8",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "Deleted"
-                    }
-                }
-            }
         }
     },
     "tags": [
@@ -1018,10 +879,6 @@
         {
             "name": "Rumah",
             "description": "Rumah"
-        },
-        {
-            "name": "RumahPenghuni",
-            "description": "RumahPenghuni"
         }
     ]
 }

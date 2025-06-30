@@ -16,12 +16,17 @@ class Penghuni extends Model
         'status_menikah',
     ];
 
-    public function rumahPenghunis()
+    public function rumahPenghuni()
     {
         return $this->hasMany(RumahPenghuni::class);
     }
 
-    public function pembayarans()
+    public function activeRumahPenghuni()
+    {
+        return $this->hasMany(RumahPenghuni::class)->whereNull('tanggal_keluar');
+    }
+
+    public function pembayaran()
     {
         return $this->hasMany(Pembayaran::class);
     }

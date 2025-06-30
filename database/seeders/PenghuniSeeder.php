@@ -13,19 +13,28 @@ class PenghuniSeeder extends Seeder
      */
     public function run(): void
     {
-        Penghuni::create([
-            'nama_lengkap' => 'Budi Santoso',
-            'foto_ktp' => 'budi.jpg',
-            'status_penghuni' => 1,
-            'nomor_telepon' => '081234567890',
-            'status_menikah' => 1,
-        ]);
-        Penghuni::create([
-            'nama_lengkap' => 'Siti Aminah',
-            'foto_ktp' => 'siti.jpg',
-            'status_penghuni' => 0,
-            'nomor_telepon' => '081298765432',
-            'status_menikah' => 0,
-        ]);
+        // Clear existing data
+        Penghuni::query()->delete();
+
+        // 15 penghuni tetap
+        for ($i = 1; $i <= 15; $i++) {
+            Penghuni::create([
+                'nama_lengkap' => 'Penghuni Tetap ' . $i,
+                'foto_ktp' => 'ktp_' . $i . '.jpg',
+                'status_penghuni' => 1,
+                'nomor_telepon' => '08' . rand(100000000, 999999999),
+                'status_menikah' => rand(0, 1),
+            ]);
+        }
+        // 5 penghuni kontrak
+        for ($i = 16; $i <= 20; $i++) {
+            Penghuni::create([
+                'nama_lengkap' => 'Penghuni Kontrak ' . ($i-15),
+                'foto_ktp' => 'ktp_' . $i . '.jpg',
+                'status_penghuni' => 0,
+                'nomor_telepon' => '08' . rand(100000000, 999999999),
+                'status_menikah' => rand(0, 1),
+            ]);
+        }
     }
 }

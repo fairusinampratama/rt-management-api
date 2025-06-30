@@ -31,12 +31,12 @@ class LaporanController extends Controller
         $bulan = $request->input('bulan');
         $tahun = $request->input('tahun');
 
-        $total_pemasukan = \App\Models\Pembayaran::where('status', 1)
+        $total_pemasukan = (float) \App\Models\Pembayaran::where('status', 1)
             ->where('bulan', $bulan)
             ->where('tahun', $tahun)
             ->sum('jumlah');
 
-        $total_pengeluaran = \App\Models\Pengeluaran::where('bulan', $bulan)
+        $total_pengeluaran = (float) \App\Models\Pengeluaran::where('bulan', $bulan)
             ->where('tahun', $tahun)
             ->sum('jumlah');
 
@@ -169,7 +169,7 @@ class LaporanController extends Controller
         $result = [];
         $saldo = 0;
         for ($bulan = 1; $bulan <= 12; $bulan++) {
-            $pemasukan = \App\Models\Pembayaran::where('status', 'lunas')
+            $pemasukan = \App\Models\Pembayaran::where('status', 1)
                 ->where('bulan', $bulan)
                 ->where('tahun', $tahun)
                 ->sum('jumlah');

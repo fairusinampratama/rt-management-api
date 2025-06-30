@@ -13,10 +13,21 @@ class RumahSeeder extends Seeder
      */
     public function run(): void
     {
-        Rumah::create(['nomor_rumah' => 'A1', 'status' => 1]);
-        Rumah::create(['nomor_rumah' => 'A2', 'status' => 0]);
-        Rumah::create(['nomor_rumah' => 'A3', 'status' => 2]);
-        Rumah::create(['nomor_rumah' => 'A4', 'status' => 1]);
-        Rumah::create(['nomor_rumah' => 'A5', 'status' => 0]);
+        // Clear existing data safely (handles foreign key constraints)
+        try {
+            Rumah::query()->delete();
+        } catch (\Exception $e) {
+            $this->command->warn('Could not clear existing rumah data due to foreign key constraints. Continuing...');
+        }
+
+        // Create 20 houses: A1-A20
+        for ($i = 1; $i <= 20; $i++) {
+            $nomor = 'A' . $i;
+            $status = $i <= 15 ? 1 : 0; // 1 = Tetap (occupied), 0 = Kosong/Kontrak
+            Rumah::create([
+                'nomor_rumah' => $nomor,
+                'status' => $status,
+            ]);
+        }
     }
 }

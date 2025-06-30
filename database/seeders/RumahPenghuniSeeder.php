@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\RumahPenghuni;
+use App\Models\Rumah;
+use App\Models\Penghuni;
 
 class RumahPenghuniSeeder extends Seeder
 {
@@ -13,17 +15,29 @@ class RumahPenghuniSeeder extends Seeder
      */
     public function run(): void
     {
-        RumahPenghuni::create([
-            'rumah_id' => 1,
-            'penghuni_id' => 1,
-            'tanggal_masuk' => '2022-01-01',
-            'tanggal_keluar' => null,
-        ]);
-        RumahPenghuni::create([
-            'rumah_id' => 2,
-            'penghuni_id' => 2,
-            'tanggal_masuk' => '2023-03-01',
-            'tanggal_keluar' => '2023-12-31',
-        ]);
+        // Clear existing data
+        RumahPenghuni::query()->delete();
+
+        // Assign 15 penghuni tetap to rumah 1-15
+        for ($i = 1; $i <= 15; $i++) {
+            $tanggalMasuk = date('Y-m-d', strtotime('-' . rand(365, 1825) . ' days'));
+            RumahPenghuni::create([
+                'rumah_id' => $i,
+                'penghuni_id' => $i,
+                'tanggal_masuk' => $tanggalMasuk,
+                'tanggal_keluar' => null,
+            ]);
+        }
+        // Assign 5 penghuni kontrak to rumah 16-20
+        for ($i = 16; $i <= 20; $i++) {
+            $tanggalMasuk = date('Y-m-d', strtotime('-' . rand(30, 365) . ' days'));
+            $tanggalKeluar = date('Y-m-d', strtotime($tanggalMasuk . ' +' . rand(30, 180) . ' days'));
+            RumahPenghuni::create([
+                'rumah_id' => $i,
+                'penghuni_id' => $i,
+                'tanggal_masuk' => $tanggalMasuk,
+                'tanggal_keluar' => $tanggalKeluar,
+            ]);
+        }
     }
 }

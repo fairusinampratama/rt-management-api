@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Run seeders in order of dependencies
         $this->call([
             UserSeeder::class,
             RumahSeeder::class,
